@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BancoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AQUISICAO_ANIMAIS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TIPO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="int" Nullable="false" />
+          <Property Name="VALOR_UNITARIO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="OBS" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CUSTO_INSUMOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TIPO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="VALOR" Type="int" Nullable="false" />
+          <Property Name="OBS" Type="varchar" MaxLength="150" />
+          <Property Name="ESPECIFICACAO_TIPO" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="CUSTOS_OUTROS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TIPO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VALOR" Type="int" Nullable="false" />
+          <Property Name="OBS" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SALARIO" Type="int" />
+          <Property Name="DATACAD" Type="datetime" Precision="0" />
+          <Property Name="DATAALT" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="MANUTENCAO_MAQUINAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DATA_REGISTRO" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="DATA_MANUTENCAO" Type="varchar" MaxLength="150" />
+          <Property Name="TIPO" Type="varchar" MaxLength="150" />
+          <Property Name="VALOR" Type="int" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PAGAMENTO_FUNCIONARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUNCIONARIO_ID" Type="int" Nullable="false" />
+          <Property Name="DATA_PAGAMENTO" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="SALARIO" Type="int" Nullable="false" />
+          <Property Name="DESCONTO" Type="int" Nullable="false" />
+          <Property Name="ACRESCIMO" Type="int" Nullable="false" />
+          <Property Name="OBS" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SENHA" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="DATACAD" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="DATAALT" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FUNCIONARIOS_ID">
+          <End Role="FUNCIONARIOS" Type="Self.FUNCIONARIOS" Multiplicity="1" />
+          <End Role="PAGAMENTO_FUNCIONARIOS" Type="Self.PAGAMENTO_FUNCIONARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PAGAMENTO_FUNCIONARIOS">
+              <PropertyRef Name="FUNCIONARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoModelStoreContainer">
+          <EntitySet Name="AQUISICAO_ANIMAIS" EntityType="Self.AQUISICAO_ANIMAIS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="CUSTO_INSUMOS" EntityType="Self.CUSTO_INSUMOS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="CUSTOS_OUTROS" EntityType="Self.CUSTOS_OUTROS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="FUNCIONARIOS" EntityType="Self.FUNCIONARIOS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="MANUTENCAO_MAQUINAS" EntityType="Self.MANUTENCAO_MAQUINAS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="PAGAMENTO_FUNCIONARIOS" EntityType="Self.PAGAMENTO_FUNCIONARIOS" Schema="msql-banco" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="msql-banco" store:Type="Tables" />
+          <AssociationSet Name="FK_FUNCIONARIOS_ID" Association="Self.FK_FUNCIONARIOS_ID">
+            <End Role="FUNCIONARIOS" EntitySet="FUNCIONARIOS" />
+            <End Role="PAGAMENTO_FUNCIONARIOS" EntitySet="PAGAMENTO_FUNCIONARIOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AQUISICAO_ANIMAIS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="VALOR_UNITARIO" Type="Decimal" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CUSTO_INSUMOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VALOR" Type="Int32" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ESPECIFICACAO_TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CUSTOS_OUTROS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VALOR" Type="Int32" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SALARIO" Type="Int32" />
+          <Property Name="DATACAD" Type="DateTime" />
+          <Property Name="DATAALT" Type="DateTime" />
+          <NavigationProperty Name="PAGAMENTO_FUNCIONARIOS" Relationship="Self.FK_FUNCIONARIOS_ID" FromRole="FUNCIONARIOS" ToRole="PAGAMENTO_FUNCIONARIOS" />
+        </EntityType>
+        <EntityType Name="MANUTENCAO_MAQUINAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DATA_REGISTRO" Type="DateTime" Nullable="false" />
+          <Property Name="DATA_MANUTENCAO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR" Type="Int32" Nullable="false" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PAGAMENTO_FUNCIONARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUNCIONARIO_ID" Type="Int32" Nullable="false" />
+          <Property Name="DATA_PAGAMENTO" Type="DateTime" Nullable="false" />
+          <Property Name="SALARIO" Type="Int32" Nullable="false" />
+          <Property Name="DESCONTO" Type="Int32" Nullable="false" />
+          <Property Name="ACRESCIMO" Type="Int32" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIOS" Relationship="Self.FK_FUNCIONARIOS_ID" FromRole="PAGAMENTO_FUNCIONARIOS" ToRole="FUNCIONARIOS" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SENHA" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DATACAD" Type="DateTime" Nullable="false" />
+          <Property Name="DATAALT" Type="DateTime" Nullable="false" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FUNCIONARIOS_ID">
+          <End Role="FUNCIONARIOS" Type="Self.FUNCIONARIOS" Multiplicity="1" />
+          <End Role="PAGAMENTO_FUNCIONARIOS" Type="Self.PAGAMENTO_FUNCIONARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PAGAMENTO_FUNCIONARIOS">
+              <PropertyRef Name="FUNCIONARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AQUISICAO_ANIMAIS" EntityType="Self.AQUISICAO_ANIMAIS" />
+          <EntitySet Name="CUSTO_INSUMOS" EntityType="Self.CUSTO_INSUMOS" />
+          <EntitySet Name="CUSTOS_OUTROS" EntityType="Self.CUSTOS_OUTROS" />
+          <EntitySet Name="FUNCIONARIOS" EntityType="Self.FUNCIONARIOS" />
+          <EntitySet Name="MANUTENCAO_MAQUINAS" EntityType="Self.MANUTENCAO_MAQUINAS" />
+          <EntitySet Name="PAGAMENTO_FUNCIONARIOS" EntityType="Self.PAGAMENTO_FUNCIONARIOS" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_FUNCIONARIOS_ID" Association="Self.FK_FUNCIONARIOS_ID">
+            <End Role="FUNCIONARIOS" EntitySet="FUNCIONARIOS" />
+            <End Role="PAGAMENTO_FUNCIONARIOS" EntitySet="PAGAMENTO_FUNCIONARIOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+          <EntitySetMapping Name="AQUISICAO_ANIMAIS">
+            <EntityTypeMapping TypeName="BancoModel.AQUISICAO_ANIMAIS">
+              <MappingFragment StoreEntitySet="AQUISICAO_ANIMAIS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="VALOR_UNITARIO" ColumnName="VALOR_UNITARIO" />
+                <ScalarProperty Name="OBS" ColumnName="OBS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTO_INSUMOS">
+            <EntityTypeMapping TypeName="BancoModel.CUSTO_INSUMOS">
+              <MappingFragment StoreEntitySet="CUSTO_INSUMOS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="OBS" ColumnName="OBS" />
+                <ScalarProperty Name="ESPECIFICACAO_TIPO" ColumnName="ESPECIFICACAO_TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOS_OUTROS">
+            <EntityTypeMapping TypeName="BancoModel.CUSTOS_OUTROS">
+              <MappingFragment StoreEntitySet="CUSTOS_OUTROS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="OBS" ColumnName="OBS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCIONARIOS">
+            <EntityTypeMapping TypeName="BancoModel.FUNCIONARIOS">
+              <MappingFragment StoreEntitySet="FUNCIONARIOS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+                <ScalarProperty Name="DATACAD" ColumnName="DATACAD" />
+                <ScalarProperty Name="DATAALT" ColumnName="DATAALT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MANUTENCAO_MAQUINAS">
+            <EntityTypeMapping TypeName="BancoModel.MANUTENCAO_MAQUINAS">
+              <MappingFragment StoreEntitySet="MANUTENCAO_MAQUINAS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATA_REGISTRO" ColumnName="DATA_REGISTRO" />
+                <ScalarProperty Name="DATA_MANUTENCAO" ColumnName="DATA_MANUTENCAO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAGAMENTO_FUNCIONARIOS">
+            <EntityTypeMapping TypeName="BancoModel.PAGAMENTO_FUNCIONARIOS">
+              <MappingFragment StoreEntitySet="PAGAMENTO_FUNCIONARIOS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FUNCIONARIO_ID" ColumnName="FUNCIONARIO_ID" />
+                <ScalarProperty Name="DATA_PAGAMENTO" ColumnName="DATA_PAGAMENTO" />
+                <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+                <ScalarProperty Name="DESCONTO" ColumnName="DESCONTO" />
+                <ScalarProperty Name="ACRESCIMO" ColumnName="ACRESCIMO" />
+                <ScalarProperty Name="OBS" ColumnName="OBS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="BancoModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="SENHA" ColumnName="SENHA" />
+                <ScalarProperty Name="DATACAD" ColumnName="DATACAD" />
+                <ScalarProperty Name="DATAALT" ColumnName="DATAALT" />
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

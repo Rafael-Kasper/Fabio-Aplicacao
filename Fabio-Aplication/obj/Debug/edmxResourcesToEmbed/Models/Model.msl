@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+    <EntitySetMapping Name="AQUISICAO_ANIMAIS">
+      <EntityTypeMapping TypeName="BancoModel.AQUISICAO_ANIMAIS">
+        <MappingFragment StoreEntitySet="AQUISICAO_ANIMAIS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+          <ScalarProperty Name="VALOR_UNITARIO" ColumnName="VALOR_UNITARIO" />
+          <ScalarProperty Name="OBS" ColumnName="OBS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTO_INSUMOS">
+      <EntityTypeMapping TypeName="BancoModel.CUSTO_INSUMOS">
+        <MappingFragment StoreEntitySet="CUSTO_INSUMOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+          <ScalarProperty Name="OBS" ColumnName="OBS" />
+          <ScalarProperty Name="ESPECIFICACAO_TIPO" ColumnName="ESPECIFICACAO_TIPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOS_OUTROS">
+      <EntityTypeMapping TypeName="BancoModel.CUSTOS_OUTROS">
+        <MappingFragment StoreEntitySet="CUSTOS_OUTROS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+          <ScalarProperty Name="OBS" ColumnName="OBS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FUNCIONARIOS">
+      <EntityTypeMapping TypeName="BancoModel.FUNCIONARIOS">
+        <MappingFragment StoreEntitySet="FUNCIONARIOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOME" ColumnName="NOME" />
+          <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+          <ScalarProperty Name="DATACAD" ColumnName="DATACAD" />
+          <ScalarProperty Name="DATAALT" ColumnName="DATAALT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MANUTENCAO_MAQUINAS">
+      <EntityTypeMapping TypeName="BancoModel.MANUTENCAO_MAQUINAS">
+        <MappingFragment StoreEntitySet="MANUTENCAO_MAQUINAS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DATA_REGISTRO" ColumnName="DATA_REGISTRO" />
+          <ScalarProperty Name="DATA_MANUTENCAO" ColumnName="DATA_MANUTENCAO" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+          <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAGAMENTO_FUNCIONARIOS">
+      <EntityTypeMapping TypeName="BancoModel.PAGAMENTO_FUNCIONARIOS">
+        <MappingFragment StoreEntitySet="PAGAMENTO_FUNCIONARIOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FUNCIONARIO_ID" ColumnName="FUNCIONARIO_ID" />
+          <ScalarProperty Name="DATA_PAGAMENTO" ColumnName="DATA_PAGAMENTO" />
+          <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+          <ScalarProperty Name="DESCONTO" ColumnName="DESCONTO" />
+          <ScalarProperty Name="ACRESCIMO" ColumnName="ACRESCIMO" />
+          <ScalarProperty Name="OBS" ColumnName="OBS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="BancoModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOME" ColumnName="NOME" />
+          <ScalarProperty Name="SENHA" ColumnName="SENHA" />
+          <ScalarProperty Name="DATACAD" ColumnName="DATACAD" />
+          <ScalarProperty Name="DATAALT" ColumnName="DATAALT" />
+          <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

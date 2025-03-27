@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AQUISICAO_ANIMAIS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+    <Property Name="VALOR_UNITARIO" Type="Decimal" Nullable="false" />
+    <Property Name="OBS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CUSTO_INSUMOS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VALOR" Type="Int32" Nullable="false" />
+    <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ESPECIFICACAO_TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CUSTOS_OUTROS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VALOR" Type="Int32" Nullable="false" />
+    <Property Name="OBS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FUNCIONARIOS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SALARIO" Type="Int32" />
+    <Property Name="DATACAD" Type="DateTime" />
+    <Property Name="DATAALT" Type="DateTime" />
+    <NavigationProperty Name="PAGAMENTO_FUNCIONARIOS" Relationship="Self.FK_FUNCIONARIOS_ID" FromRole="FUNCIONARIOS" ToRole="PAGAMENTO_FUNCIONARIOS" />
+  </EntityType>
+  <EntityType Name="MANUTENCAO_MAQUINAS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="DATA_REGISTRO" Type="DateTime" Nullable="false" />
+    <Property Name="DATA_MANUTENCAO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="TIPO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR" Type="Int32" Nullable="false" />
+    <Property Name="DESCRICAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PAGAMENTO_FUNCIONARIOS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FUNCIONARIO_ID" Type="Int32" Nullable="false" />
+    <Property Name="DATA_PAGAMENTO" Type="DateTime" Nullable="false" />
+    <Property Name="SALARIO" Type="Int32" Nullable="false" />
+    <Property Name="DESCONTO" Type="Int32" Nullable="false" />
+    <Property Name="ACRESCIMO" Type="Int32" Nullable="false" />
+    <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FUNCIONARIOS" Relationship="Self.FK_FUNCIONARIOS_ID" FromRole="PAGAMENTO_FUNCIONARIOS" ToRole="FUNCIONARIOS" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SENHA" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DATACAD" Type="DateTime" Nullable="false" />
+    <Property Name="DATAALT" Type="DateTime" Nullable="false" />
+    <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_FUNCIONARIOS_ID">
+    <End Role="FUNCIONARIOS" Type="Self.FUNCIONARIOS" Multiplicity="1" />
+    <End Role="PAGAMENTO_FUNCIONARIOS" Type="Self.PAGAMENTO_FUNCIONARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FUNCIONARIOS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PAGAMENTO_FUNCIONARIOS">
+        <PropertyRef Name="FUNCIONARIO_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BancoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AQUISICAO_ANIMAIS" EntityType="Self.AQUISICAO_ANIMAIS" />
+    <EntitySet Name="CUSTO_INSUMOS" EntityType="Self.CUSTO_INSUMOS" />
+    <EntitySet Name="CUSTOS_OUTROS" EntityType="Self.CUSTOS_OUTROS" />
+    <EntitySet Name="FUNCIONARIOS" EntityType="Self.FUNCIONARIOS" />
+    <EntitySet Name="MANUTENCAO_MAQUINAS" EntityType="Self.MANUTENCAO_MAQUINAS" />
+    <EntitySet Name="PAGAMENTO_FUNCIONARIOS" EntityType="Self.PAGAMENTO_FUNCIONARIOS" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <AssociationSet Name="FK_FUNCIONARIOS_ID" Association="Self.FK_FUNCIONARIOS_ID">
+      <End Role="FUNCIONARIOS" EntitySet="FUNCIONARIOS" />
+      <End Role="PAGAMENTO_FUNCIONARIOS" EntitySet="PAGAMENTO_FUNCIONARIOS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
