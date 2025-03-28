@@ -1,0 +1,40 @@
+﻿@model Fabio_Aplication.Models.AQUISICAO_ANIMAIS
+
+@{
+    ViewBag.Title = "Excluir Funcionário";
+}
+
+<div class="container">
+    <h2>Excluir Animal</h2>
+
+    <h3>Tem certeza que deseja excluir este Animal?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Tipo:</dt>
+            <dd>@Html.DisplayFor(model => model.TIPO)</dd>
+
+            <dt>Quantidade:</dt>
+            <dd>@Html.DisplayFor(model => model.QUANTIDADE)</dd>
+
+            <dt>Valor da Unidade:</dt>
+            <dd>@Html.DisplayFor(model => model.VALOR_UNITARIO)</dd>
+
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <button type="submit" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i> Excluir
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Voltar
+                </a>
+            </div>
+        }
+    </div>
+</div>

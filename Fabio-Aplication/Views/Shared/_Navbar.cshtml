@@ -1,101 +1,196 @@
-﻿<link href="~/Content/NavabarStyle.css" rel="stylesheet" />
-<div class='dashboard'>
-    <div class="dashboard-nav">
-        <header>
-            <a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
-                                                                               class="brand-logo">
-                <i class="fas fa-anchor"></i> <span>BRAND</span>
-            </a>
-        </header>
-        <nav class="dashboard-nav-list">
-            <a href="#" class="dashboard-nav-item">
-                <i class="fas fa-home"></i>
-                Home
-            </a><a href="#" class="dashboard-nav-item active">
-                <i class="fas fa-tachometer-alt"></i> dashboard
-            </a><a href="#" class="dashboard-nav-item"><i class="fas fa-file-upload"></i> Upload </a>
-            <div class='dashboard-nav-dropdown'>
-                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                    <i class="fas fa-photo-video"></i> Media
-                </a>
-                <div class='dashboard-nav-dropdown-menu'>
-                    <a href="#"
-                       class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Recent</a><a href="#" class="dashboard-nav-dropdown-item">Images</a><a href="#" class="dashboard-nav-dropdown-item">Video</a>
-                </div>
-            </div>
-            <div class='dashboard-nav-dropdown'>
-                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                    <i class="fas fa-users"></i> Users
-                </a>
-                <div class='dashboard-nav-dropdown-menu'>
-                    <a href="#"
-                       class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Subscribed</a><a href="#"
-                                                                                                                                   class="dashboard-nav-dropdown-item">Non-subscribed</a><a href="#" class="dashboard-nav-dropdown-item">Banned</a><a href="#" class="dashboard-nav-dropdown-item">New</a>
-                </div>
-            </div>
-            <div class='dashboard-nav-dropdown'>
-                <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                    <i class="fas fa-money-check-alt"></i> Payments
-                </a>
-                <div class='dashboard-nav-dropdown-menu'>
-                    <a href="#"
-                       class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Recent</a><a href="#" class="dashboard-nav-dropdown-item"> Projections</a>
-                </div>
-            </div>
-            <a href="#" class="dashboard-nav-item"><i class="fas fa-cogs"></i> Settings </a><a href="#" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>
-            <div class="nav-item-divider"></div>
-            <a href="#" class="dashboard-nav-item"><i class="fas fa-sign-out-alt"></i> Logout </a>
-        </nav>
+﻿<style>
+    .navbar {
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    background: #1a1a1a; /* Cor de fundo escura */
+    transition: all 0.3s;
+    z-index: 1000;
+    padding: 20px;
+}
+
+    .sidebar.active {
+        left: 0;
+    }
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.btn-close {
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+}
+
+sidebar-menu .nav-link {
+    color: #888;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 5px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.btn-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #24E3A7;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    z-index: 1001;
+    transition: all 0.3s ease; /* Adiciona transição suave */
+}
+
+
+.sidebar-menu .nav-link:hover {
+    background: #2a2a2a; /* Cor de hover */
+    color: #fff;
+}
+
+.sidebar-menu .nav-link.active {
+    background: #24E3A7; /* Cor do item ativo */
+    color: #fff;
+}
+
+.sidebar.active + .btn-toggle {
+    left: 270px; /* 250px (sidebar) + 20px (margin) */
+}
+
+.sidebar-menu .nav-link i {
+    width: 25px;
+    text-align: center;
+}
+
+
+
+
+/* Botão de Toggle Mobile */
+
+
+/* Ícones */
+.nav-link i {
+    width: 25px;
+    text-align: center;
+}
+
+/* Estilos Responsivos */
+@@media (max-width: 768px) {
+    .sidebar {
+        left: -250px;
+    }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+    .btn-toggle {
+        display: block;
+    }
+    .navbar-nav {
+        display: none;
+    }
+}
+
+</style>
+
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <h3 class="logo">
+            <span class="fw-bold">Seu</span>Logo
+        </h3>
+        <button class="btn-close" onclick="toggleSidebar()">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
-    <div class='dashboard-app'>
-        <header class='dashboard-toolbar'><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a></header>
-        <div class='dashboard-content'>
-            <div class='container'>
-                <div class='card'>
-                    <div class='card-header'>
-                        <h1>Welcome back Jim</h1>
-                    </div>
-                    <div class='card-body'>
-                        <p>Your account type is: Administrator</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="sidebar-menu">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("Index", "Home")">
+                    <i class="fas fa-home me-3"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("About", "Home")">
+                    <i class="fas fa-info-circle me-3"></i>
+                    <span>Sobre</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                    <i class="fas fa-envelope me-3"></i>
+                    <span>Contato</span>
+                </a>
+            </li>
+            <!-- Adicione mais itens -->
+        </ul>
     </div>
 </div>
 
+<!-- Botão de Toggle (adicione no seu layout principal) -->
+<button class="btn-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+
+
 <script>
-    const mobileScreen = window.matchMedia("(max-width: 992px)");
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.querySelector('.body-content');
 
-    // Atualize o código para
-    $(document).ready(function () {
-        // Dropdowns
-        $(".dashboard-nav-dropdown-toggle").click(function () {
-            const dropdown = $(this).closest(".dashboard-nav-dropdown");
-            dropdown.toggleClass("show");
-            dropdown.find(".dashboard-nav-dropdown-menu").slideToggle(300);
-            $(".dashboard-nav-dropdown").not(dropdown).removeClass("show").find(".dashboard-nav-dropdown-menu").slideUp(300);
-        });
+        sidebar.classList.toggle('active');
 
-        // Menu toggle
-        $(".menu-toggle").click(function (e) {
-            e.preventDefault();
-            if (mobileScreen.matches) {
-                $(".dashboard-nav").toggleClass("mobile-show");
-                $(this).find("i").toggleClass("fa-times fa-bars");
-            } else {
-                $(".dashboard").toggleClass("dashboard-compact");
-            }
-        });
+        // Aplica margin apenas em desktop
+        if (window.innerWidth > 768) {
+            content.style.marginLeft = sidebar.classList.contains('active');
+        }
+    }
 
-        // Fechar menu ao clicar fora (mobile)
-        $(document).click(function (e) {
-            if (!$(e.target).closest('.dashboard-nav').length &&
-                !$(e.target).closest('.menu-toggle').length &&
-                $('.dashboard-nav').hasClass('mobile-show')) {
-                $('.dashboard-nav').removeClass('mobile-show');
-                $('.menu-toggle i').removeClass('fa-times').addClass('fa-bars');
-            }
-        });
+    // Fecha a sidebar ao clicar fora (mobile)
+    document.addEventListener('click', function (event) {
+        const sidebar = document.getElementById('sidebar');
+        const btnToggle = document.querySelector('.btn-toggle');
+
+        if (window.innerWidth <= 768 &&
+            !sidebar.contains(event.target) &&
+            !event.target.closest('.btn-toggle')) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // Atualiza o layout ao redimensionar
+    window.addEventListener('resize', function () {
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth > 768) {
+            sidebar.classList.remove('active');
+            document.querySelector('.body-content');
+        } else {
+            document.querySelector('.body-content');
+        }
     });
 </script>

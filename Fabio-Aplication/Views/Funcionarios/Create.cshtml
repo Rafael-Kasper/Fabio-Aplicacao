@@ -1,0 +1,144 @@
+﻿@model Fabio_Aplication.Models.FUNCIONARIOS
+
+@{
+    ViewBag.Title = "Cadastrar Funcionário";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-lg">
+    <div class="d-flex justify-content-center">
+        <!-- Container centralizador principal -->
+        <div class="w-100" style="max-width: 1000px;">
+            <!-- Largura máxima aumentada -->
+            <div class="d-flex justify-content-between align-items-center mb-5 mt-4">
+                <h2 class="display-4 mb-0 text-primary">
+                    <i class="fas fa-user-plus mr-3"></i>Cadastrar Funcionário
+                </h2>
+                <a href="@Url.Action("Index")"
+                   class="btn btn-outline-secondary btn-lg btn-rounded"
+                   style="border-radius: 20px; transition: all 0.3s ease; min-width: 180px;">
+                    <i class="fas fa-arrow-left mr-2"></i>Voltar
+                </a>
+            </div>
+
+            <div class="card border-0 shadow-lg mx-auto w-100">
+                <!-- Centralização garantida -->
+                <div class="card-body p-5">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <!-- Campo Nome -->
+                            <div class="form-group row mb-5 justify-content-center">
+                                <!-- Centralização da linha -->
+                                <div class="col-md-8">
+                                    <!-- Coluna centralizada -->
+                                    @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label h4 mb-3" })
+                                    @Html.EditorFor(model => model.NOME, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control form-control-xl text-center",
+                                            style = "border-radius: 15px; height: 60px;",
+                                            placeholder = "Digite o nome completo"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger h5 text-center d-block mt-2" })
+                                </div>
+                            </div>
+
+                            <!-- Campo Salário -->
+                            <div class="form-group row mb-5 justify-content-center">
+                                <div class="col-md-8">
+                                    @Html.LabelFor(model => model.SALARIO, htmlAttributes: new { @class = "control-label h4 mb-3" })
+                                    @Html.EditorFor(model => model.SALARIO, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control form-control-xl text-center",
+                                            style = "border-radius: 15px; height: 60px;",
+                                            placeholder = "Informe o salário"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.SALARIO, "", new { @class = "text-danger h5 text-center d-block mt-2" })
+                                </div>
+                            </div>
+
+                            <!-- Botão Submit -->
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-8 text-center">
+                                    <button type="submit"
+                                            class="btn btn-xl btn-rounded position-relative overflow-hidden"
+                                            style="background-color: #24E3A7; border:none;
+                                                   border-radius: 20px;
+                                                   transition: all 0.3s ease;
+                                                   padding: 1rem 3rem;
+                                                   font-size: 1.5rem;
+                                                   min-width: 300px;">
+                                        <i class="fas fa-save mr-2"></i>Salvar Cadastro
+                                        <div class="position-absolute w-100 h-100 bg-white"
+                                             style="top:0; left:0; opacity:0; transition: all 0.3s ease; pointer-events: none;"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .form-control-xl {
+        padding: 1.5rem 2rem;
+        font-size: 1.25rem;
+        line-height: 1.5;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .btn-rounded:hover {
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(36, 227, 167, 0.4) !important;
+    }
+
+    .btn-rounded:active {
+        transform: translateY(2px) scale(0.97);
+    }
+
+    .card {
+        border-radius: 20px;
+    }
+
+    .text-danger {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+</style>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Formatação automática do salário
+        $('#SALARIO').on('input', function () {
+            let value = $(this).val().replace(/\D/g, '');
+            value = (value / 100).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+            $(this).val(value);
+        });
+
+        // Foco automático no primeiro campo
+        $('#NOME').focus();
+    });
+</script>
