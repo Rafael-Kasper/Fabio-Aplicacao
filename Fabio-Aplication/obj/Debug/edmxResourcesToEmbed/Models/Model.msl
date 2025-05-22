@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="BancoEntities">
     <EntitySetMapping Name="AQUISICAO_ANIMAIS">
-      <EntityTypeMapping TypeName="BancoModel.AQUISICAO_ANIMAIS">
+      <EntityTypeMapping TypeName="Model.AQUISICAO_ANIMAIS">
         <MappingFragment StoreEntitySet="AQUISICAO_ANIMAIS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CUSTO_INSUMOS">
-      <EntityTypeMapping TypeName="BancoModel.CUSTO_INSUMOS">
+      <EntityTypeMapping TypeName="Model.CUSTO_INSUMOS">
         <MappingFragment StoreEntitySet="CUSTO_INSUMOS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -24,7 +24,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CUSTOS_OUTROS">
-      <EntityTypeMapping TypeName="BancoModel.CUSTOS_OUTROS">
+      <EntityTypeMapping TypeName="Model.CUSTOS_OUTROS">
         <MappingFragment StoreEntitySet="CUSTOS_OUTROS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -34,7 +34,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="FUNCIONARIOS">
-      <EntityTypeMapping TypeName="BancoModel.FUNCIONARIOS">
+      <EntityTypeMapping TypeName="Model.FUNCIONARIOS">
         <MappingFragment StoreEntitySet="FUNCIONARIOS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NOME" ColumnName="NOME" />
@@ -45,7 +45,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="MANUTENCAO_MAQUINAS">
-      <EntityTypeMapping TypeName="BancoModel.MANUTENCAO_MAQUINAS">
+      <EntityTypeMapping TypeName="Model.MANUTENCAO_MAQUINAS">
         <MappingFragment StoreEntitySet="MANUTENCAO_MAQUINAS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="DATA_REGISTRO" ColumnName="DATA_REGISTRO" />
@@ -57,7 +57,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PAGAMENTO_FUNCIONARIOS">
-      <EntityTypeMapping TypeName="BancoModel.PAGAMENTO_FUNCIONARIOS">
+      <EntityTypeMapping TypeName="Model.PAGAMENTO_FUNCIONARIOS">
         <MappingFragment StoreEntitySet="PAGAMENTO_FUNCIONARIOS">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="FUNCIONARIO_ID" ColumnName="FUNCIONARIO_ID" />
@@ -65,12 +65,13 @@
           <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
           <ScalarProperty Name="DESCONTO" ColumnName="DESCONTO" />
           <ScalarProperty Name="ACRESCIMO" ColumnName="ACRESCIMO" />
+          <ScalarProperty Name="SALARIO_LIQUIDO" ColumnName="SALARIO_LIQUIDO" />
           <ScalarProperty Name="OBS" ColumnName="OBS" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="USUARIO">
-      <EntityTypeMapping TypeName="BancoModel.USUARIO">
+      <EntityTypeMapping TypeName="Model.USUARIO">
         <MappingFragment StoreEntitySet="USUARIO">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NOME" ColumnName="NOME" />

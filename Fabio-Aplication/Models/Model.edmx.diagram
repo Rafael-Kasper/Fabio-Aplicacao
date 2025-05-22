@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dbf022294bf64f8f9cd2f649cd725a5d" Name="Diagram1">
-        <EntityTypeShape EntityType="BancoModel.AQUISICAO_ANIMAIS" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.CUSTO_INSUMOS" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.CUSTOS_OUTROS" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.FUNCIONARIOS" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.MANUTENCAO_MAQUINAS" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.PAGAMENTO_FUNCIONARIOS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BancoModel.USUARIO" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="BancoModel.FK_FUNCIONARIOS_ID" ManuallyRouted="false" />
+      <Diagram DiagramId="c3366c2d3b814ee5a0daff8f6d919b25" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.AQUISICAO_ANIMAIS" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CUSTO_INSUMOS" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CUSTOS_OUTROS" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FUNCIONARIOS" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MANUTENCAO_MAQUINAS" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PAGAMENTO_FUNCIONARIOS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_FUNCIONARIOS_ID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

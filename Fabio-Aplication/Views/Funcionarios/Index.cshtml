@@ -1,161 +1,216 @@
 ﻿@model IEnumerable<Fabio_Aplication.Models.FUNCIONARIOS>
+@using System.Linq
 
 @{
     ViewBag.Title = "Funcionários";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-lg">
-    <div class="d-flex justify-content-between align-items-center mb-5 mt-4">
-        <h2 class="display-5 mb-0">
-            <i class=" mr-3"></i>Funcionários
-        </h2>
-        <a href="@Url.Action("Create")"
-           class="btn btn-primary btn-lg btn-rounded position-relative overflow-hidden"
-           style="background-color: #24E3A7; border:none; border-radius: 20px; margin-bottom: 20px; transition: all 0.3s ease;">
-
-            <i class="fas fa-plus-circle mr-2" style="margin-right:10px;"></i>Novo Funcionário
-
-            <div class="position-absolute w-100 h-100 bg-white"
-                 style="top:0; left:0; opacity:0; transition: all 0.3s ease; pointer-events: none;"></div>
+<div class="main-content">
+    <div class="header-section">
+        <h1 class="page-title">Funcionários</h1>
+        <a href="@Url.Action("Create")" class="new-button">
+            <i class="fas fa-plus-circle"></i>Novo Funcionário
         </a>
     </div>
 
-    <div class="card border-0 shadow-lg">
-        <div class="card-body p-4">
-            <div class="table-responsive">
-                <table class="table table-hover table-lg mb-0">
-                    <thead style="background-color:#24E3A7; padding:5px;">
+    <div class="content-card">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
                         <tr>
-                            <th class="h5" style="padding:15px; color:white; font-weight:bold; ">Nome</th>
-                            <th class="h5" style="padding: 15px; color: white; font-weight: bold; ">Salário</th>
-                            <th class="h5" style="padding: 15px; color: white; font-weight: bold; ">Cadastro</th>
-                            <th class="h5" style="padding: 15px; color: white; font-weight: bold; ">Última Alteração</th>
-                            <th class=" h5 text-right" style="padding: 15px; color: white; font-weight: bold; ">Ações</th>
+                            <th>Nome</th>
+                            <th>Salário Base</th>
+                            <th>Último Salário Líquido</th>
+                            <th>Mês Último Pagamento</th>
+                            <th>Cadastro</th>
+                            <th>Última Alteração</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr class="align-middle">
-                                <td class="h5">
-                                    <i class="fas fa-user-tie mr-3 fa-lg text-primary" style=" color:#1a1a1a;"></i>
-                                    @Html.DisplayFor(modelItem => item.NOME)
+                            var ultimoPagamento = item.PAGAMENTO_FUNCIONARIOS != null && item.PAGAMENTO_FUNCIONARIOS.Any()
+                                ? item.PAGAMENTO_FUNCIONARIOS.OrderByDescending(p => p.DATA_PAGAMENTO).FirstOrDefault()
+                                : null;
+
+                            <tr>
+                                <td class="user-cell">
+                                    <i class="fas fa-user-tie"></i>
+                                    @item.NOME
                                 </td>
-                                <td class="font-weight-bold text-success">
-                                    @Html.DisplayFor(modelItem => item.SALARIO)
+                                <td>R$ @String.Format("{0:N2}", item.SALARIO)</td>
+                                <td>
+                                    @if (ultimoPagamento != null)
+                                    {
+                                        <span style="color:green">
+                                            R$ @String.Format("{0:N2}", ultimoPagamento.SALARIO_LIQUIDO)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:gray">Sem pagamento</span>
+                                    }
                                 </td>
                                 <td>
-                                    <span class="badge badge-light py-2 px-3 h5">
-                                        @item.DATACAD
-                                    </span>
+                                    @if (ultimoPagamento != null)
+                                    {
+                                        @ultimoPagamento.DATA_PAGAMENTO.ToString("MM/yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span style="color:gray">-</span>
+                                    }
                                 </td>
                                 <td>
-                                    <span class="badge badge-light py-2 px-3 h5">
-                                        @item.DATAALT
-                                    </span>
+                                    @(item.DATAALT.HasValue ? item.DATAALT.Value.ToString("dd/MM/yyyy") : "-")
                                 </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <a href="@Url.Action("Edit", new { id = item.ID })"
-                                           class="btn btn-sm btn-outline-primary"
-                                           data-toggle="tooltip"
-                                           title="Editar">
-                                            <i class="fas fa-edit fa-lg" style="color:lawngreen;"></i>
-                                        </a>
-                                        <a href="@Url.Action("Delete", new { id = item.ID })"
-                                           class="btn btn-sm btn-outline-danger ml-2"
-                                           data-toggle="tooltip"
-                                           title="Excluir">
-                                            <i class="fas fa-trash-alt fa-lg" style="color:red;"></i>
-                                        </a>
-                                    </div>
+                                <td>
+                                    @(item.DATAALT.HasValue ? item.DATAALT.Value.ToString("dd/MM/yyyy") : "-")
+                                </td>
+                                <td class="actions-cell">
+                                    <a href="@Url.Action("Historico", "Pagamentos", new { funcionarioId = item.ID })" class="action-btn" title="Histórico de Pagamentos">
+                                        <i class="fas fa-money-check-alt"></i>
+                                    </a>
+                                    <a href="@Url.Action("Edit", new { id = item.ID })" class="action-btn edit-btn" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = item.ID })" class="action-btn delete-btn" title="Excluir">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-
-                @if (!Model.Any())
-                {
-                    <div class="text-center py-5">
-                        <i class="fas fa-users-slash fa-4x text-muted mb-4"></i>
-                        <h4 class="text-muted mb-3">Nenhum funcionário cadastrado</h4>
-                        <p class="text-muted h5">Clique no botão acima para adicionar</p>
-                    </div>
-                }
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-users-slash"></i>
+                <h3>Nenhum funcionário cadastrado</h3>
+                <p>Clique no botão acima para adicionar</p>
+            </div>
+        }
     </div>
 </div>
 
+<style>
+    /* Layout Principal */
+    .main-content {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        transition: margin 0.3s ease;
+    }
 
-    <style>
+    /* Header */
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
 
-        .btn-rounded:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(36, 227, 167, 0.3) !important;
+    .page-title {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    /* Botões */
+    .new-button {
+        background: #24E3A7;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .new-button:hover {
+            background: #1ec191;
+            transform: translateY(-2px);
         }
 
-        .btn-rounded:active {
-            transform: translateY(1px) scale(0.98);
+    /* Tabela */
+    .content-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .data-table th,
+        .data-table td {
+            padding: 16px 20px;
+            text-align: left;
         }
 
-        .btn-rounded:hover .position-absolute {
-            animation: ripple 0.6s ease-out;
-        }
-
-        @@keyframes ripple {
-            0% {
-                transform: scale(0);
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        .container-lg {
-            max-width: 1400px; /* Largura máxima aumentada */
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-
-        .table-lg th,
-        .table-lg td {
-            padding: 1.25rem; /* Espaçamento interno aumentado */
-        }
-
-
-        /* Estilos complementares que não conflitam com Site.css */
-        .table-hover tbody tr {
-            transition: background-color 0.2s ease;
-        }
-
-        .badge {
-            font-size: 1.1rem;
-            padding: 0.5em 0.75em;
-        }
-
-        .btn-outline-primary {
-            border-width: 2px;
-        }
-
-        .thead-dark th {
-            background-color: #2c3e50;
+        .data-table th {
+            background: #24E3A7;
             color: white;
+            font-weight: 600;
         }
-    </style>
 
+        .data-table tr {
+            border-bottom: 1px solid #eee;
+        }
 
-    <script>
-        $(document).ready(function () {
-            // Ativa tooltips
-            $('[data-toggle="tooltip"]').tooltip();
+            .data-table tr:hover {
+                background: #f8f9fa;
+            }
 
-            // Suaviza transições
-            $('.table-hover tbody tr').css('transition', 'all 0.2s ease');
+    /* Células Específicas */
+    .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .date-badge {
+        background: #f8f9fa;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .actions-cell {
+        display: flex;
+        gap: 12px;
+    }
+
+    /* Estado Vazio */
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6c757d;
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        // Tooltips
+        $('[title]').tooltip({
+            trigger: 'hover',
+            placement: 'top'
         });
-    </script>
+    });
+</script>

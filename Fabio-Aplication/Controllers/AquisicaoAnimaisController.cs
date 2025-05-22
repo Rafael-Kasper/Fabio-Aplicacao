@@ -18,6 +18,10 @@ namespace Fabio_Aplication.Controllers
         public ActionResult Index()
         {
             var animais = db.AQUISICAO_ANIMAIS.ToList();
+
+            ViewBag.TotalQuantidade = animais.Sum(a => a.QUANTIDADE);
+            ViewBag.TotalValorUnitario = animais.Sum(a => a.VALOR_UNITARIO);
+
             return View(animais);
         }
 

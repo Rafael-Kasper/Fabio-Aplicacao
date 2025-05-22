@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BancoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AQUISICAO_ANIMAIS">
     <Key>
       <PropertyRef Name="ID" />
@@ -57,10 +57,11 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FUNCIONARIO_ID" Type="int" Nullable="false" />
     <Property Name="DATA_PAGAMENTO" Type="datetime" Precision="0" Nullable="false" />
-    <Property Name="SALARIO" Type="int" Nullable="false" />
-    <Property Name="DESCONTO" Type="int" Nullable="false" />
-    <Property Name="ACRESCIMO" Type="int" Nullable="false" />
-    <Property Name="OBS" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="SALARIO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="DESCONTO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ACRESCIMO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SALARIO_LIQUIDO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="OBS" Type="varchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="USUARIO">
     <Key>
@@ -85,7 +86,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="BancoModelStoreContainer">
+  <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="AQUISICAO_ANIMAIS" EntityType="Self.AQUISICAO_ANIMAIS" Schema="msql-banco" store:Type="Tables" />
     <EntitySet Name="CUSTO_INSUMOS" EntityType="Self.CUSTO_INSUMOS" Schema="msql-banco" store:Type="Tables" />
     <EntitySet Name="CUSTOS_OUTROS" EntityType="Self.CUSTOS_OUTROS" Schema="msql-banco" store:Type="Tables" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BancoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AQUISICAO_ANIMAIS">
           <Key>
             <PropertyRef Name="ID" />
@@ -62,10 +62,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FUNCIONARIO_ID" Type="int" Nullable="false" />
           <Property Name="DATA_PAGAMENTO" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="SALARIO" Type="int" Nullable="false" />
-          <Property Name="DESCONTO" Type="int" Nullable="false" />
-          <Property Name="ACRESCIMO" Type="int" Nullable="false" />
-          <Property Name="OBS" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SALARIO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="DESCONTO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ACRESCIMO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="SALARIO_LIQUIDO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="OBS" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="USUARIO">
           <Key>
@@ -90,7 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BancoModelStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AQUISICAO_ANIMAIS" EntityType="Self.AQUISICAO_ANIMAIS" Schema="msql-banco" store:Type="Tables" />
           <EntitySet Name="CUSTO_INSUMOS" EntityType="Self.CUSTO_INSUMOS" Schema="msql-banco" store:Type="Tables" />
           <EntitySet Name="CUSTOS_OUTROS" EntityType="Self.CUSTOS_OUTROS" Schema="msql-banco" store:Type="Tables" />
@@ -107,7 +108,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AQUISICAO_ANIMAIS">
           <Key>
             <PropertyRef Name="ID" />
@@ -166,10 +167,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FUNCIONARIO_ID" Type="Int32" Nullable="false" />
           <Property Name="DATA_PAGAMENTO" Type="DateTime" Nullable="false" />
-          <Property Name="SALARIO" Type="Int32" Nullable="false" />
-          <Property Name="DESCONTO" Type="Int32" Nullable="false" />
-          <Property Name="ACRESCIMO" Type="Int32" Nullable="false" />
-          <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SALARIO" Type="Decimal" Nullable="false" />
+          <Property Name="DESCONTO" Type="Decimal" Nullable="false" />
+          <Property Name="ACRESCIMO" Type="Decimal" Nullable="false" />
+          <Property Name="SALARIO_LIQUIDO" Type="Decimal" Nullable="false" />
+          <Property Name="OBS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FUNCIONARIOS" Relationship="Self.FK_FUNCIONARIOS_ID" FromRole="PAGAMENTO_FUNCIONARIOS" ToRole="FUNCIONARIOS" />
         </EntityType>
         <EntityType Name="USUARIO">
@@ -213,9 +215,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="BancoEntities">
           <EntitySetMapping Name="AQUISICAO_ANIMAIS">
-            <EntityTypeMapping TypeName="BancoModel.AQUISICAO_ANIMAIS">
+            <EntityTypeMapping TypeName="Model.AQUISICAO_ANIMAIS">
               <MappingFragment StoreEntitySet="AQUISICAO_ANIMAIS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -226,7 +228,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CUSTO_INSUMOS">
-            <EntityTypeMapping TypeName="BancoModel.CUSTO_INSUMOS">
+            <EntityTypeMapping TypeName="Model.CUSTO_INSUMOS">
               <MappingFragment StoreEntitySet="CUSTO_INSUMOS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -237,7 +239,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CUSTOS_OUTROS">
-            <EntityTypeMapping TypeName="BancoModel.CUSTOS_OUTROS">
+            <EntityTypeMapping TypeName="Model.CUSTOS_OUTROS">
               <MappingFragment StoreEntitySet="CUSTOS_OUTROS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />
@@ -247,7 +249,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FUNCIONARIOS">
-            <EntityTypeMapping TypeName="BancoModel.FUNCIONARIOS">
+            <EntityTypeMapping TypeName="Model.FUNCIONARIOS">
               <MappingFragment StoreEntitySet="FUNCIONARIOS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NOME" ColumnName="NOME" />
@@ -258,7 +260,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MANUTENCAO_MAQUINAS">
-            <EntityTypeMapping TypeName="BancoModel.MANUTENCAO_MAQUINAS">
+            <EntityTypeMapping TypeName="Model.MANUTENCAO_MAQUINAS">
               <MappingFragment StoreEntitySet="MANUTENCAO_MAQUINAS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DATA_REGISTRO" ColumnName="DATA_REGISTRO" />
@@ -270,7 +272,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PAGAMENTO_FUNCIONARIOS">
-            <EntityTypeMapping TypeName="BancoModel.PAGAMENTO_FUNCIONARIOS">
+            <EntityTypeMapping TypeName="Model.PAGAMENTO_FUNCIONARIOS">
               <MappingFragment StoreEntitySet="PAGAMENTO_FUNCIONARIOS">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FUNCIONARIO_ID" ColumnName="FUNCIONARIO_ID" />
@@ -278,12 +280,13 @@
                 <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
                 <ScalarProperty Name="DESCONTO" ColumnName="DESCONTO" />
                 <ScalarProperty Name="ACRESCIMO" ColumnName="ACRESCIMO" />
+                <ScalarProperty Name="SALARIO_LIQUIDO" ColumnName="SALARIO_LIQUIDO" />
                 <ScalarProperty Name="OBS" ColumnName="OBS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USUARIO">
-            <EntityTypeMapping TypeName="BancoModel.USUARIO">
+            <EntityTypeMapping TypeName="Model.USUARIO">
               <MappingFragment StoreEntitySet="USUARIO">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NOME" ColumnName="NOME" />

@@ -1,0 +1,124 @@
+﻿@model Fabio_Aplication.Models.PAGAMENTO_FUNCIONARIOS
+
+@{
+    ViewBag.Title = "Novo Pagamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content">
+    <div class="header-section">
+        <h1 class="page-title">Novo Pagamento</h1>
+        <a href="@Url.Action("Index")" class="new-button">
+            <i class="fas fa-list"></i> Listar Pagamentos
+        </a>
+    </div>
+
+    <div class="content-card">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal" style="padding:30px;">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FUNCIONARIO_ID, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.DropDownListFor(model => model.FUNCIONARIO_ID,
+                            (SelectList)ViewBag.FUNCIONARIO_ID,
+                            "-- Selecione um Funcionário --",
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FUNCIONARIO_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DATA_PAGAMENTO, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.DATA_PAGAMENTO, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DATA_PAGAMENTO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SALARIO, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.TextBoxFor(model => model.SALARIO, new { @class = "form-control", placeholder = "00,00", autocomplete = "off", id = "SALARIO" })
+                        @Html.ValidationMessageFor(model => model.SALARIO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ACRESCIMO, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.TextBoxFor(model => model.ACRESCIMO, new { @class = "form-control", placeholder = "00,00", autocomplete = "off", id = "ACRESCIMO" })
+                        @Html.ValidationMessageFor(model => model.ACRESCIMO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DESCONTO, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.TextBoxFor(model => model.DESCONTO, new { @class = "form-control", placeholder = "00,00", autocomplete = "off", id = "DESCONTO" })
+                        @Html.ValidationMessageFor(model => model.DESCONTO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SALARIO_LIQUIDO, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        <input type="text" class="form-control" id="SALARIO_LIQUIDO" name="SALARIO_LIQUIDO" value="@Model.SALARIO_LIQUIDO.ToString("N2")" readonly="readonly" tabindex="-1" style="background:#f4f4f4;" />
+                        <small class="text-muted">O salário líquido é calculado: salário + acréscimo - desconto</small>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:20px;">
+                    <input type="submit" value="Salvar Pagamento" class="btn btn-success" />
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            function parseDecimal(val) {
+                // Remove tudo que não for número ou vírgula/ponto
+                val = (val || "").replace(/[^\d.,-]/g, "").replace(",", ".");
+                return parseFloat(val) || 0;
+            }
+            function calcularLiquido() {
+                var salario = parseDecimal($("#SALARIO").val());
+                var acrescimo = parseDecimal($("#ACRESCIMO").val());
+                var desconto = parseDecimal($("#DESCONTO").val());
+                var liquido = salario + acrescimo - desconto;
+                $("#SALARIO_LIQUIDO").val(liquido.toFixed(2).replace(".", ","));
+            }
+            // Remove máscara ao focar
+            $("#SALARIO, #ACRESCIMO, #DESCONTO").on("focus", function () {
+                if ($(this).val() === "" || $(this).val() === "00,00" || $(this).val() === "0,00") {
+                    $(this).val("");
+                }
+            });
+            // Coloca máscara ao sair se vazio
+            $("#SALARIO, #ACRESCIMO, #DESCONTO").on("blur", function () {
+                if (!$(this).val() || $(this).val() === "0" || $(this).val() === "0.00") {
+                    $(this).val("00,00");
+                }
+            });
+            // Atualiza cálculo ao digitar
+            $("#SALARIO, #ACRESCIMO, #DESCONTO").on("input", calcularLiquido);
+
+            // Inicializa campos com máscara se estiverem vazios
+            $("#SALARIO, #ACRESCIMO, #DESCONTO").each(function () {
+                if (!$(this).val() || $(this).val() === "0" || $(this).val() === "0.00") {
+                    $(this).val("00,00");
+                }
+            });
+
+            calcularLiquido();
+        });
+    </script>
+}

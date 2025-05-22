@@ -1,4 +1,12 @@
-﻿body {
+﻿:root {
+    --cor-primaria: #24E3A7;
+    --cor-perigo: #e53e3e;
+    --cor-texto: #2c3e50;
+    --cor-texto-secundario: #718096;
+    --sombra-padrao: 0 4px 25px rgba(0,0,0,0.08);
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #F3F6F7;
@@ -10,18 +18,12 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: none;
 }
 
 

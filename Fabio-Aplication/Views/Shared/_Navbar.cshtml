@@ -135,24 +135,58 @@ sidebar-menu .nav-link {
                     <span>Home</span>
                 </a>
             </li>
+            <li><h4 style="color:white;">Registros</h4></li>
+
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("About", "Home")">
-                    <i class="fas fa-info-circle me-3"></i>
-                    <span>Sobre</span>
+                <a class="nav-link" href="@Url.Action("Index", "Funcionarios")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Funcionarios</span>
                 </a>
+
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Contact", "Home")">
-                    <i class="fas fa-envelope me-3"></i>
-                    <span>Contato</span>
+                <a class="nav-link" href="@Url.Action("Index", "AquisicaoAnimais")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Animais</span>
                 </a>
+
             </li>
-            <!-- Adicione mais itens -->
+
+            <li><h4 style="color:white;">Relatórios</h4></li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "AquisicaoAnimais")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Dashboard</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "AquisicaoAnimais")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Tabela Animais</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "AquisicaoAnimais")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Tabela Funcionarios</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "AquisicaoAnimais")">
+                    <i class="fas fa-bars me-3" style="color:aquamarine;"></i>
+                    <span style="color:aquamarine;">Tabela Totais</span>
+                </a>
+
+            </li>
+
         </ul>
     </div>
 </div>
 
-<!-- Botão de Toggle (adicione no seu layout principal) -->
+
 <button class="btn-toggle" onclick="toggleSidebar()">
     <i class="fas fa-bars"></i>
 </button>

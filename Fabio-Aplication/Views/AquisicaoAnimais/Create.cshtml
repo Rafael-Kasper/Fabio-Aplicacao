@@ -1,66 +1,204 @@
 ﻿@model Fabio_Aplication.Models.AQUISICAO_ANIMAIS
 
 @{
-    ViewBag.Title = "Cadastrar Funcionário";
+    ViewBag.Title = "Cadastrar Animal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <h2>Cadastrar Animal</h2>
+<div class="main-container">
+    <div class="header-section">
+        <h2 class="title">
+            <i class="fas fa-paw"></i>Cadastrar Animal
+        </h2>
+        <a href="@Url.Action("Index")" class="back-button">
+            <i class="fas fa-arrow-left"></i>Voltar
+        </a>
+    </div>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <div class="form-card">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-content">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TIPO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TIPO, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Campo Tipo -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TIPO)
+                    @Html.EditorFor(model => model.TIPO, new
+                    {
+                        htmlAttributes = new
+                        {
+                        @class = "form-control",
+                        placeholder = "Ex: Bovino, Equino, etc."
+                        }
+                    })
                     @Html.ValidationMessageFor(model => model.TIPO, "", new { @class = "text-danger" })
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.QUANTIDADE, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.QUANTIDADE, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Campo Quantidade -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QUANTIDADE)
+                    @Html.EditorFor(model => model.QUANTIDADE, new
+                    {
+                        htmlAttributes = new
+                        {
+                        @class = "form-control",
+                        placeholder = "Número de animais adquiridos"
+                        }
+                    })
                     @Html.ValidationMessageFor(model => model.QUANTIDADE, "", new { @class = "text-danger" })
                 </div>
-            </div>
 
-            
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.VALOR_UNITARIO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.VALOR_UNITARIO, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Campo Valor Unitário -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VALOR_UNITARIO)
+                    @Html.EditorFor(model => model.VALOR_UNITARIO, new
+                    {
+                        htmlAttributes = new
+                        {
+                        @class = "form-control",
+                        placeholder = "Valor por unidade"
+                        }
+                    })
                     @Html.ValidationMessageFor(model => model.VALOR_UNITARIO, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            
-            <div class="form-group">
-                @Html.LabelFor(model => model.OBS, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.OBS, new { htmlAttributes = new { @class = "form-control" } })
+
+                <!-- Campo Observações -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OBS)
+                    @Html.TextAreaFor(model => model.OBS, new
+                    {
+                        @class = "form-control",
+                        rows = "3",
+                        placeholder = "Informações adicionais (opcional)"
+                    })
                     @Html.ValidationMessageFor(model => model.OBS, "", new { @class = "text-danger" })
                 </div>
-            </div>
 
-              
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-success">
-                        <i class="glyphicon glyphicon-floppy-disk"></i> Salvar
+                <!-- Botões -->
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-save"></i>Salvar Cadastro
                     </button>
-                    <a href="@Url.Action("Index")" class="btn btn-default">
-                        <i class="glyphicon glyphicon-arrow-left"></i> Voltar
-                    </a>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+<style>
+    /* Estilos consistentes com as demais páginas */
+    .main-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .title {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .form-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #24E3A7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(36, 227, 167, 0.2);
+        }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .back-button {
+        background: #f8f9fa;
+        color: #2c3e50;
+        padding: 10px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .back-button:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+    .submit-button {
+        background: #24E3A7;
+        color: white;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .submit-button:hover {
+            background: #1ec191;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(36, 227, 167, 0.3);
+        }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .fas {
+        margin-right: 8px;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Foco automático no primeiro campo
+        $('#TIPO').focus();
+
+        // Formatação monetária para o campo de valor
+        $('#VALOR_UNITARIO').on('input', function() {
+            let value = $(this).val().replace(/\D/g, '');
+            value = (value / 100).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+            $(this).val(value);
+        });
+    });
+</script>

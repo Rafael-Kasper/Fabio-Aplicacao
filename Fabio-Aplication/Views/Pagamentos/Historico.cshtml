@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Fabio_Aplication.Models.PAGAMENTO_FUNCIONARIOS>
+
+@{ ViewBag.Title = "Histórico de Pagamentos";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="main-content">
+    <div class="header-section">
+        <h1 class="page-title">Histórico de Pagamentos</h1>
+        <a href="@Url.Action("Create")" class="new-button">
+            <i class="fas fa-plus-circle"></i>Novo Pagamento
+        </a>
+        <a href="@Url.Action("Index")" class="new-button" style="background:#ddd;color:#333;">
+            <i class="fas fa-list"></i> Listar Pagamentos
+        </a>
+    </div>
+
+    <div class="content-card">
+        @if (Model != null && Model.Any())
+        {
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Funcionário (ID)</th>
+                <th>Salário</th>
+                <th>Acréscimo</th>
+                <th>Desconto</th>
+                <th>Salário Líquido</th>
+                <th>Data Pagamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+<tr>
+    <td>@item.ID</td>
+    <td>
+        @(item.FUNCIONARIO_ID > 0 ? item.FUNCIONARIO_ID.ToString() : "-")
+    </td>
+    <td>R$ @String.Format("{0:N2}", item.SALARIO)</td>
+    <td>R$ @String.Format("{0:N2}", item.ACRESCIMO)</td>
+    <td>R$ @String.Format("{0:N2}", item.DESCONTO)</td>
+    <td>
+        <strong>R$ @String.Format("{0:N2}", item.SALARIO_LIQUIDO)</strong>
+    </td>
+    <td>
+        @item.DATA_PAGAMENTO.ToString("dd/MM/yyyy")
+    </td>
+</tr>}
+        </tbody>
+    </table>
+</div> }
+            else
+            {
+<div class="empty-state">
+    <i class="fas fa-history"></i>
+    <h3>Nenhum pagamento registrado</h3>
+    <p>Clique no botão acima para adicionar o primeiro pagamento.</p>
+</div>}
+    </div>
+</div>
+
+<style>
+    /* Use o mesmo CSS das suas outras views para manter o padrão visual */
+    .main-content {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        gap: 10px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .new-button {
+        background: #24E3A7;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .new-button:hover {
+            background: #1ec191;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .content-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .data-table th,
+        .data-table td {
+            padding: 16px 20px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: #24E3A7;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+            .data-table tr:hover {
+                background: #f8f9fa;
+            }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6c757d;
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+</style>

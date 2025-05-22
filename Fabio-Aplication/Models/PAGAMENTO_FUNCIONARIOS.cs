@@ -17,9 +17,10 @@ namespace Fabio_Aplication.Models
         public int ID { get; set; }
         public int FUNCIONARIO_ID { get; set; }
         public System.DateTime DATA_PAGAMENTO { get; set; }
-        public int SALARIO { get; set; }
-        public int DESCONTO { get; set; }
-        public int ACRESCIMO { get; set; }
+        public decimal SALARIO { get; set; }
+        public decimal DESCONTO { get; set; }
+        public decimal ACRESCIMO { get; set; }
+        public decimal SALARIO_LIQUIDO { get; set; }
         public string OBS { get; set; }
     
         public virtual FUNCIONARIOS FUNCIONARIOS { get; set; }
